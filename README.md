@@ -118,10 +118,84 @@ test('async test', async () => {
 
 ```
 
+## 7. **What is code coverage in Jest?**
+Code coverage in Jest tells you how much of your code is actually executed (tested) during your test runs.
+
+| Metric     | Meaning                   |
+| ---------- | ------------------------- |
+| Statements | % of statements executed  |
+| Branches   | if/else conditions tested |
+| Functions  | functions called          |
+| Lines      | lines executed            |
+
+
+`npm test -- --coverage`
+
+```jsx
+// sum.js
+export const sum = (a, b) => a + b
+```
+
+***Coverage will be 100% because all lines ran.***
+```jsx
+// sum.test.js
+import { sum } from './sum'
+
+test('adds numbers', () => {
+  expect(sum(2, 3)).toBe(5)
+})
+```
+
+***Branch coverage is 50%***
+```jsx
+export const check = (x) => {
+  if (x > 10) {
+    return 'big'
+  }
+  return 'small'
+}
+```
+If you test only x > 10, then:
+Branch coverage is 50%. 
+Because else was never tested
+
+## 8. **What is test.only?**
+test.only in Jest is used to run only one specific test and skip all other tests. Very useful while debugging.
+
+```jsx
+test.only('runs only this test', () => {
+  expect(2 + 2).toBe(4)
+})
+
+test('this test will be skipped', () => {
+  expect(1 + 1).toBe(2)
+})
+```
+```jsx
+describe.only('Math tests', () => {
+  test('adds', () => {
+    expect(2 + 3).toBe(5)
+  })
+})
+
+describe('String tests', () => {
+  test('length', () => {
+    expect('hi'.length).toBe(2)
+  })
+})
+
+```
+
+## 9. **whats difference describe.only vs test.only?**
+- `test.only` runs only one single test
+- `describe.only` runs all tests inside one describe block
+
+## 10. **What is test.skip?**
+
+
+
+
 ## 7. **How to test API calls?**
 ## 8. **What is jest.spyOn()?**
-## 9. **What is code coverage in Jest?**
-## 10. **What is test.only?**
-## 11. **What is test.skip?**
 ## 12. **Difference between mockClear, mockReset, mockRestore**
 ## 13. **How do you test React components with Jest?**

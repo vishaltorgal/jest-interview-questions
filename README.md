@@ -191,11 +191,59 @@ describe('String tests', () => {
 - `describe.only` runs all tests inside one describe block
 
 ## 10. **What is test.skip?**
+`test.skip` is a Jest feature used to temporarily skip a test so it does not run during the test execution.
 
+```jsx
+test('runs normally', () => {
+  expect(true).toBe(true);
+});
 
+test.skip('skipped test', () => {
+  expect(false).toBe(true);
+});
+```
+***Skip multiple tests***
 
+```jsx
+describe.skip('User API tests', () => {
+  test('should create user', () => {});
+  test('should delete user', () => {});
+});
+```
 
-## 7. **How to test API calls?**
-## 8. **What is jest.spyOn()?**
-## 12. **Difference between mockClear, mockReset, mockRestore**
-## 13. **How do you test React components with Jest?**
+## 11. **How to test API calls?**
+
+***Example function that calls an API***
+```jsx
+// api.js
+export const getUsers = async () => {
+  const res = await fetch('https://api.example.com/users');
+  return res.json();
+};
+
+```
+***Test with mocked fetch***
+```jsx
+// api.test.js
+import { getUsers } from './api';
+
+global.fetch = jest.fn();
+
+test('fetches users successfully', async () => {
+  fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValueOnce([
+      { id: 1, name: 'John' }
+    ])
+  });
+
+  const data = await getUsers();
+
+  expect(fetch).toHaveBeenCalledWith('https://api.example.com/users');
+  expect(data[0].name).toBe('John');
+});
+
+```
+
+## 12. **What is jest.spyOn()?**
+## 13. **Difference between mockClear, mockReset, mockRestore**
+## 14. **How do you test React components with Jest?**

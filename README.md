@@ -1,11 +1,21 @@
-# jest-interview-questions
+# Jest Interview Questions (2025–2026)
+### Table of Contents
 
-## Table of Contents
-
-- [1. What is describe in Jest?](#1-what-is-describe-in-jest)
-- [2. What is expect in Jest?](#2-what-is-expect-in-jest)
-- [3. Difference between toBe and toEqual?](#3-difference-between-tobe-and-toequal)
-   
+1. [What is describe in Jest?](#1-what-is-describe-in-jest)
+2. [What is expect in Jest?](#2-what-is-expect-in-jest)
+3. [toBe vs toEqual](#3-tobe-vs-toequal)
+4. [What is snapshot testing?](#4-what-is-snapshot-testing)
+5. [Jest lifecycle methods](#5-jest-lifecycle-methods)
+6. [Testing async code](#6-testing-async-code)
+7. [What is code coverage?](#7-what-is-code-coverage)
+8. [test.only – focused testing](#8-testonly--focused-testing)
+9. [describe.only vs test.only](#9-describeonly-vs-testonly)
+10. [test.skip – skipping tests](#10-testskip--skipping-tests)
+11. [How to test API calls?](#11-how-to-test-api-calls)
+12. [What is jest.spyOn()?](#12-what-is-jestspyon)
+13. [jest.spyOn vs jest.mock](#13-jestspyon-vs-jestmock)
+14. [mockClear vs mockReset vs mockRestore](#14-mockclear-vs-mockreset-vs-mockrestore)
+15. [Testing React components](#15-testing-react-components)
 
 ## 1. What is describe in Jest?
 
@@ -31,7 +41,7 @@ test('two plus two is four', () => {
 });
 ```
 
-# 3. Difference between toBe and toEqual?
+## 3. Difference between toBe and toEqual?
 
 **toBe** checks exact reference or primitive value (Similar to ===)
 

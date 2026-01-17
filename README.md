@@ -339,4 +339,5 @@ test('shows Hello World text', () => {
 - Render the component
 - Check if text appears on screen
 
-[⬆ Back to top](#jest-interview-questions-2025-2026)
+[⬆ Back to Table of Contents](#table-of-contents)
+

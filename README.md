@@ -1,21 +1,24 @@
 # Jest Interview Questions (2025–2026)
 ### Table of Contents
 
+### Table of Contents
+
 1. [What is describe in Jest?](#1-what-is-describe-in-jest)
 2. [What is expect in Jest?](#2-what-is-expect-in-jest)
-3. [toBe vs toEqual](#3-tobe-vs-toequal)
+3. [Difference between toBe and toEqual?](#3-difference-between-tobe-and-toequal)
 4. [What is snapshot testing?](#4-what-is-snapshot-testing)
-5. [Jest lifecycle methods](#5-jest-lifecycle-methods)
-6. [Testing async code](#6-testing-async-code)
-7. [What is code coverage?](#7-what-is-code-coverage)
-8. [test.only – focused testing](#8-testonly--focused-testing)
-9. [describe.only vs test.only](#9-describeonly-vs-testonly)
-10. [test.skip – skipping tests](#10-testskip--skipping-tests)
+5. [What are lifecycle methods in Jest?](#5-what-are-lifecycle-methods-in-jest)
+6. [How do you test async code in Jest?](#6-how-do-you-test-async-code-in-jest)
+7. [What is code coverage in Jest?](#7-what-is-code-coverage-in-jest)
+8. [What is test.only?](#8-what-is-testonly)
+9. [whats difference describe.only vs test.only?](#9-whats-difference-describeonly-vs-testonly)
+10. [What is test.skip?](#10-what-is-testskip)
 11. [How to test API calls?](#11-how-to-test-api-calls)
 12. [What is jest.spyOn()?](#12-what-is-jestspyon)
-13. [jest.spyOn vs jest.mock](#13-jestspyon-vs-jestmock)
-14. [mockClear vs mockReset vs mockRestore](#14-mockclear-vs-mockreset-vs-mockrestore)
-15. [Testing React components](#15-testing-react-components)
+13. [Difference: jest.spyOn vs jest.mock?](#13-difference-jestspyon-vs-jestmock)
+14. [Difference between mockClear, mockReset, mockRestore](#14-difference-between-mockclear-mockreset-mockrestore)
+15. [How do you test React components with Jest?](#15-how-do-you-test-react-components-with-jest)
+
 
 ## 1. What is describe in Jest?
 

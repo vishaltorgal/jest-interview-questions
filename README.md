@@ -1,5 +1,4 @@
 # Jest Interview Questions (2025–2026)
-### Table of Contents
 
 ### Table of Contents
 

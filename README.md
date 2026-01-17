@@ -1,6 +1,13 @@
 # jest-interview-questions
 
-## 1. **What is describe in Jest?**
+## Table of Contents
+
+- [1. What is describe in Jest?](#1-what-is-describe-in-jest)
+- [2. What is expect in Jest?](#2-what-is-expect-in-jest)
+- [3. Difference between toBe and toEqual?](#3-difference-between-tobe-and-toequal)
+   
+
+## 1. What is describe in Jest?
 
 **describe** is used to group related test cases.
   
@@ -12,7 +19,7 @@ describe('Math tests', () => {
 });
 ```
 
-## 2. **What is expect in Jest?**
+## 2. What is expect in Jest?
 
 **expect** is used to create assertions to check the output of a test.
 The basic syntax follows this pattern: *expect(actualValue).matcher(expectedValue);*
@@ -24,7 +31,7 @@ test('two plus two is four', () => {
 });
 ```
 
-## 3. **Difference between toBe and toEqual?**
+# 3. Difference between toBe and toEqual?
 
 **toBe** checks exact reference or primitive value (Similar to ===)
 
@@ -245,5 +252,78 @@ test('fetches users successfully', async () => {
 ```
 
 ## 12. **What is jest.spyOn()?**
-## 13. **Difference between mockClear, mockReset, mockRestore**
-## 14. **How do you test React components with Jest?**
+
+`jest.spyOn()` creates a spy on an existing method to check how many times it was called, with what arguments, or to mock its behavior.
+
+***File***
+```jsx
+// math.js
+export const add = (a, b) => a + b;
+```
+
+***Test***
+```jsx
+import * as math from './math';
+
+test('mock implementation using spyOn', () => {
+  const spy = jest.spyOn(math, 'add').mockReturnValue(10);
+
+  const result = math.add(2, 3);
+
+  expect(result).toBe(10);
+});
+
+```
+## 13. **Difference: jest.spyOn vs jest.mock?**
+
+| Feature         | jest.spyOn()      | jest.mock()     |
+| --------------- | ----------------- | --------------- |
+| Scope           | Single function   | Whole module    |
+| Original code   | Exists            | Replaced        |
+| Partial mocking | Yes               | No              |
+| Tracks calls    | Yes               | Yes             |
+| Restore needed  | Yes (mockRestore) | No              |
+| Use case        | Internal methods  | External module |
+
+
+## 14. **Difference between mockClear, mockReset, mockRestore**
+
+| Feature                    | mockClear() | mockReset() | mockRestore() |
+| -------------------------- | ----------- | ----------- | ------------- |
+| Clears call history        | Yes         | Yes         | Yes           |
+| Clears mock implementation | No          | Yes         | Yes           |
+| Clears mock return value   | No          | Yes         | Yes           |
+| Restores original function | No          | No          | Yes           |
+| Used with jest.fn()        | Yes         | Yes         | No            |
+| Used with jest.spyOn()     | Yes         | Yes         | Yes           |
+
+- `mockClear` clears history only
+- `mockReset` clears history and implementation
+- `mockRestore` brings back original function
+
+## 15. **How do you test React components with Jest?**
+
+***Simple component***
+```jsx
+function Hello() {
+  return <h1>Hello World</h1>;
+}
+
+```
+
+***Test***
+```jsx
+import { render, screen } from '@testing-library/react';
+import Hello from './Hello';
+
+test('shows Hello World text', () => {
+  render(<Hello />);
+
+  expect(screen.getByText('Hello World')).toBeInTheDocument();
+});
+
+```
+***What is happening***
+- Render the component
+- Check if text appears on screen
+

@@ -17,6 +17,7 @@
 13. [Difference: jest.spyOn vs jest.mock?](#13-difference-jestspyon-vs-jestmock)
 14. [Difference between mockClear, mockReset, mockRestore](#14-difference-between-mockclear-mockreset-mockrestore)
 15. [How do you test React components with Jest?](#15-how-do-you-test-react-components-with-jest)
+16. [How do you manage errors in Jest.js?](#15-how-do-you-manage-errors-in-jest)
 
 
 ## 1. What is describe in Jest?
@@ -338,6 +339,36 @@ test('shows Hello World text', () => {
 ***What is happening***
 - Render the component
 - Check if text appears on screen
+
+
+
+## 16. How do you manage errors in Jest.js?
+In Jest.js, error management is achieved through the use of ‘expect’ and ‘.toThrow()’ functions. The ‘expect’ function wraps a piece of code that might throw an error while ‘.toThrow()’ asserts that an error does get thrown. If no error is thrown, the test fails.
+
+```jsx
+await expect(apiCall()).rejects.toThrow("API failed");
+```
+
+```jsx
+function divide(a, b) {
+  if (b === 0) {
+    throw new Error("Cannot divide by zero");
+  }
+  return a / b;
+}
+
+test("throws error when dividing by zero", () => {
+  expect(() => divide(10, 0)).toThrow("Cannot divide by zero");
+});
+
+```
+
+- Use toThrow for sync errors
+- Use rejects.toThrow for async errors
+- Prefer async/await over .then/.catch
+- Mock failures explicitly using mockRejectedValue
+
+
 
 [⬆ Back to Table of Contents](#table-of-contents)
 

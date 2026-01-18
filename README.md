@@ -19,7 +19,7 @@
 15. [How do you test React components with Jest?](#15-how-do-you-test-react-components-with-jest)
 16. [How do you manage errors in Jest?](#16-how-do-you-manage-errors-in-jest)
 17. [How do you test setTimeout or setInterval in Jest?](#17-how-do-you-test-settimeout-or-setinterval-in-jest)
-18. [How do you test Redux actions and reducers in Jest?](#17-how-do-you-test-redux-actions-and-reducers-in-jest)
+18. [How do you test Redux actions and reducers in Jest?](#18-how-do-you-test-redux-actions-and-reducers-in-jest)
 
 
 ## 1. What is describe in Jest?

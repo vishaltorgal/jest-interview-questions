@@ -235,35 +235,27 @@ describe.skip('User API tests', () => {
 
 ## 11. **How to test API calls?**
 
-***Example function that calls an API***
-```jsx
-// api.js
-export const getUsers = async () => {
-  const res = await fetch('https://api.example.com/users');
-  return res.json();
-};
 
-```
+
 ***Test with mocked fetch***
 ```jsx
-// api.test.js
-import { getUsers } from './api';
+//In Non-Production: "hijacked" the fetch function so real api wont get called.Correct.
+//In Production: This hijack absolutely does not happen in production.
+global.fetch = jest.fn(); 
 
-global.fetch = jest.fn();
 
-test('fetches users successfully', async () => {
+test("fetches data successfully", async () => {
+// In test: we use this mock. In prod: the real server provides the JSON.
   fetch.mockResolvedValueOnce({
-    json: jest.fn().mockResolvedValueOnce([
-      { id: 1, name: 'John' }
-    ])
+    json: jest.fn().mockResolvedValue({ name: "John" })  
   });
+// In Non-Production: You ARE calling the REAL getUser function. However, inside that real function, the FETCH call it makes is fake.
+// In Production: both the function and the fetch are real.
+  const data = await getUser(); 
 
-  const data = await getUsers();
-
-  expect(fetch).toHaveBeenCalledWith('https://api.example.com/users');
-  expect(data[0].name).toBe('John');
+  expect(fetch).toHaveBeenCalledWith("/api/user");
+  expect(data.name).toBe("John");
 });
-
 ```
 
 ## 12. **What is jest.spyOn()?**

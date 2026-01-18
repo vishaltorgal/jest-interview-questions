@@ -408,7 +408,10 @@ test('calls the callback after 5 seconds', () => {
 
 ## 18. How do you test Redux actions and reducers in Jest?
 Redux actions and reducers are easy to test in Jest because reducers are pure functions and actions return predictable objects. We can test reducers by passing an initial state and an action, then asserting the new state.
+<br><br>
 Jest can be used to test Redux actions and reducers by creating mock functions and states. For testing actions, we use ‘describe’ and ‘it’ blocks for organizing tests. Inside ‘it’, we dispatch the action with a mock payload and expect certain output.
 
+
+  
 [⬆ Back to Table of Contents](#table-of-contents)
 

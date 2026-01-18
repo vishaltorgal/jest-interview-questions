@@ -17,7 +17,7 @@
 13. [Difference: jest.spyOn vs jest.mock?](#13-difference-jestspyon-vs-jestmock)
 14. [Difference between mockClear, mockReset, mockRestore](#14-difference-between-mockclear-mockreset-mockrestore)
 15. [How do you test React components with Jest?](#15-how-do-you-test-react-components-with-jest)
-16. [How do you manage errors in Jest.js?](#15-how-do-you-manage-errors-in-jest)
+16. [How do you manage errors in Jest.js?](#16-how-do-you-manage-errors-in-jest)
 
 
 ## 1. What is describe in Jest?

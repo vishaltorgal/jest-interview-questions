@@ -18,6 +18,7 @@
 14. [Difference between mockClear, mockReset, mockRestore](#14-difference-between-mockclear-mockreset-mockrestore)
 15. [How do you test React components with Jest?](#15-how-do-you-test-react-components-with-jest)
 16. [How do you manage errors in Jest?](#16-how-do-you-manage-errors-in-jest)
+17. [How do you test setTimeout or setInterval in Jest?](#17-how-do-you-test-settimeout-or-setinterval-in-jest)
 
 
 ## 1. What is describe in Jest?
@@ -363,11 +364,46 @@ test("throws error when dividing by zero", () => {
 
 ```
 
-- Use toThrow for sync errors
-- Use rejects.toThrow for async errors
-- Prefer async/await over .then/.catch
-- Mock failures explicitly using mockRejectedValue
+- Use **toThrow** for sync errors
+- Use **rejects.toThrow** for async errors
+- Prefer **async/await** over **.then/.catch**
+- Mock failures explicitly using **mockRejectedValue**
 
+
+## 17. How do you test setTimeout or setInterval in Jest?
+
+In Jest, timer-based functions like setTimeout and setInterval are tested using **fake timers**.
+
+**Useful timer methods**
+- jest.useFakeTimers() mock timers
+- jest.advanceTimersByTime(ms) fast-forward time
+- jest.runAllTimers() run all pending timers
+- jest.runOnlyPendingTimers() run current timers
+- jest.clearAllTimers() cleanup
+
+```jsx
+function delayedGreeting(callback) {
+  setTimeout(() => {
+    callback('Hello!');
+  }, 5000);
+}
+
+test('calls the callback after 5 seconds', () => {
+  jest.useFakeTimers(); // Enable fake timers
+  const callback = jest.fn();
+
+  delayedGreeting(callback);
+
+  // At this point, the callback should NOT have been called
+  expect(callback).not.toBeCalled();
+
+  // Fast-forward time
+  jest.advanceTimersByTime(5000);
+
+  expect(callback).toBeCalledWith('Hello!');
+  jest.useRealTimers(); // Cleanup
+});
+```
 
 
 [⬆ Back to Table of Contents](#table-of-contents)

@@ -342,7 +342,7 @@ test('shows Hello World text', () => {
 
 
 
-## 16. How do you manage errors in Jest ?
+## 16. How do you manage errors in Jest?
 In Jest.js, error management is achieved through the use of ‘expect’ and ‘.toThrow()’ functions. The ‘expect’ function wraps a piece of code that might throw an error while ‘.toThrow()’ asserts that an error does get thrown. If no error is thrown, the test fails.
 
 ```jsx

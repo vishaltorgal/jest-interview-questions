@@ -24,14 +24,23 @@
 
 ## 1. What is describe in Jest?
 
-**describe** is used to group related test cases.
+**describe** is used to group related test cases. Think of it as a container or a folder for your test cases.
   
 ```jsx
-describe('Math tests', () => {
-  test('2 + 2 = 4', () => {
-    expect(2 + 2).toBe(4);
+describe("Calculator", () => {
+
+  //1
+  test("adds two numbers", () => {
+    expect(2 + 3).toBe(5);
   });
+
+  //2
+  test("subtracts two numbers", () => {
+    expect(5 - 3).toBe(2);
+  });
+
 });
+
 ```
 
 ## 2. What is expect in Jest?

@@ -60,7 +60,9 @@ test('two plus two is four', () => {
 **toBe** checks exact reference or primitive value (Similar to ===)
 
 **toEqual** checks deep equality for objects or arrays
-  
+
+***toBe*** checks for Referential Equality (memory), while ***toEqual*** checks for Value Equality
+
 ```jsx
 test('primitives work with both', () => {
   const value = 10;
@@ -191,7 +193,8 @@ Branch coverage is 50%.
 Because else was never tested
 
 ## 8. **What is test.only?**
-test.only in Jest is used to run only one specific test and skip all other tests. Very useful while debugging.
+
+***test.only*** in Jest is used to run only one specific test and skip all other tests. Very useful while debugging.
 
 ```jsx
 test.only('runs only this test', () => {
@@ -244,52 +247,113 @@ describe.skip('User API tests', () => {
 
 ## 11. **How to test API calls?**
 
-
-
 ***Test with mocked fetch***
+
 ```jsx
-//In Non-Production: "hijacked" the fetch function so real api wont get called.Correct.
-//In Production: This hijack absolutely does not happen in production.
-global.fetch = jest.fn(); 
+// api.js
+export async function getUser() {
+  const response = await fetch("/api/user")
+  return response.json()
+}
+```
+```jsx
+// api.test.js
+import { getUser } from "./api"
+
+// In non production (Jest test environment):
+// We hijack the global fetch function so no real API call is made.
+// This hijack NEVER happens in production.
+beforeEach(() => {
+  global.fetch = jest.fn();
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 
 test("fetches data successfully", async () => {
-// In test: we use this mock. In prod: the real server provides the JSON.
+  // In test: we mock the fetch response.
+  // In production: the real server would return the JSON.
   fetch.mockResolvedValueOnce({
-    json: jest.fn().mockResolvedValue({ name: "John" })  
+    json: jest.fn().mockResolvedValue({ name: "John" })
   });
-// In Non-Production: You ARE calling the REAL getUser function. However, inside that real function, the FETCH call it makes is fake.
-// In Production: both the function and the fetch are real.
-  const data = await getUser(); 
+
+  // We are calling the REAL getUser function.
+  // In tests: getUser uses the mocked fetch.
+  // In production: getUser uses the real fetch.
+  const data = await getUser();
 
   expect(fetch).toHaveBeenCalledWith("/api/user");
   expect(data.name).toBe("John");
 });
 ```
 
+***The Execution (Real vs. Fake)***
+When you run const data = await getUser();, you are executing the actual code you wrote for your app.
+
+***In Production***: getUser calls fetch, the browser sends a request to a server in a data center, and the server sends back John's info.
+
+***In this Test***: getUser calls fetch, Jest intercepts it, sees you wanted to return { name: "John" }, and hands that back immediately. No network traffic ever happens.
+
+
 ## 12. **What is jest.spyOn()?**
 
 `jest.spyOn()` creates a spy on an existing method to check how many times it was called, with what arguments, or to mock its behavior.
 
 ***File***
+***Imagine this real code***
+
 ```jsx
-// math.js
-export const add = (a, b) => a + b;
+// logger.js
+export function log(message) {
+  console.log(message)
+}
+```
+```jsx
+// service.js
+import { log } from "./logger"
+
+export function greet(name) {
+  log("greet called")
+  return "Hello " + name
+}
 ```
 
-***Test***
+
+
+***We want to check two things:***
+- greet() returns correct message
+- log() was called
+- We do NOT want to rewrite log().
+
+
+## Test using jest.spyOn
 ```jsx
-import * as math from './math';
+import * as logger from "./logger"
+import { greet } from "./service"
 
-test('mock implementation using spyOn', () => {
-  const spy = jest.spyOn(math, 'add').mockReturnValue(10);
+test("greet logs and returns greeting", () => {
+  const spy = jest.spyOn(logger, "log")
 
-  const result = math.add(2, 3);
+  const result = greet("John")
 
-  expect(result).toBe(10);
-});
+  expect(result).toBe("Hello John")
+  expect(spy).toHaveBeenCalledWith("greet called")
+})
 
 ```
+***What happened here (step by step)***
+
+- greet("John") runs
+- Inside greet, real log() runs
+- jest.spyOn quietly watches log()
+- Test checks: was log called?
+- We did not replace log
+- We only observed it
+
+<br>
+
 ## 13. **Difference: jest.spyOn vs jest.mock?**
 
 | Feature         | jest.spyOn()      | jest.mock()     |
@@ -301,6 +365,7 @@ test('mock implementation using spyOn', () => {
 | Restore needed  | Yes (mockRestore) | No              |
 | Use case        | Internal methods  | External module |
 
+<br>
 
 ## 14. **Difference between mockClear, mockReset, mockRestore**
 
